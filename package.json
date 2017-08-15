@@ -1,0 +1,34 @@
+{
+  "name": "react-plumbing",
+  "version": "0.1.0",
+  "description": "State management/Event publishing framework for React",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/softwareplumber/react-plumbing.git"
+  },
+  "keywords": [
+    "react",
+    "flux",
+    "redux",
+    "events",
+    "actions",
+    "reducers"
+  ],
+  "author": "Jonathan Essex",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/softwareplumber/react-plumbing/issues"
+  },
+  "homepage": "https://github.com/softwareplumber/react-plumbing#readme",
+  "devDependencies": {
+    "chai": "^4.1.1",
+    "mocha": "^3.5.0"
+  },
+  "dependencies": {
+    "codelike": "^0.1.2"
+  }
+}
