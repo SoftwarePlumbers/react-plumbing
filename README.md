@@ -59,8 +59,8 @@ const site = Action.builder;
 
 function loginAction(form) {
     return site.clearMessages()
-        .then(action.authenticate(form.username,form.password))
-        .then(action.closePopup().when(action.authenticated));
+        .then(site.authenticate(form.username,form.password))
+        .then(site.closePopup().when(site.authenticated));
 }
 ```
 
