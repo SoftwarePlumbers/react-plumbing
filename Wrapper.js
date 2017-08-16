@@ -50,7 +50,7 @@ class Wrapper extends React.Component {
     }
 
     render() {
-        let merged_props = { ...this.props, ...this.state }; 
+        let merged_props = Object.assign({}, this.props, this.state }; 
         log.debug("Wrapper.render", this.wrappedname, merged_props);
         return React.createElement(this.wrapped, merged_props);
     }
