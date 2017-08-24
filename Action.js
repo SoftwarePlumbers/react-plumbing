@@ -11,11 +11,11 @@ class ScriptBuilder {
     constructor(script = []) { this.script = script; }
     result()    { return this.script; }
     push(item) { this.script.push(item); return this; }
-    visitRoot() { };
-    visitThen() { };
-    visitwhen() { };
-    visitGet() { };
-    visitCall() { };
+    visitRoot() { }
+    visitThen() { }
+    visitwhen() { }
+    visitGet() { }
+    visitCall() { }
 }
 
 class createUpdateScript extends ScriptBuilder {
@@ -51,12 +51,12 @@ class createGetForUpdateScript  extends ScriptBuilder {
                 .push(parameters[0])
                 .push(COMMANDS.FIND);
         }
-     }
+    }
 }
 
 class createGetScript  extends ScriptBuilder {
 
-    visitRoot() { this.push(COMMANDS.DUP)};  
+    visitRoot() { this.push(COMMANDS.DUP); } 
     visitGet(first, name) {
         first.visit(this);
         this.push(name)

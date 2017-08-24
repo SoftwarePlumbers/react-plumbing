@@ -20,6 +20,6 @@ Container.childContextTypes = {
     store: PropTypes.object.isRequired,
     propagator: PropTypes.object.isRequired,
     submitter: PropTypes.func.isRequired
-}
+};
 
 module.exports = Container;

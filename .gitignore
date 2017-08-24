@@ -60,3 +60,6 @@ typings/
 # jsdoc generated documentations
 build/doc
 
+# For now
+build
+

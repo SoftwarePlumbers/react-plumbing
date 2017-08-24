@@ -1,13 +1,13 @@
 const debug = require('debug')('react-plumbing~selector');
 
 const NO_MAP = val => val;
-const NO_FILTER = val => true;
+const NO_FILTER = () => true;
 
 class Selector {
 
 
     static _equals(a, b, compare) {
-        debug("Selector._equals", a, b);
+        debug('Selector._equals', a, b);
         if (a === b) return true;
         //console.log('not identical');
         let aType = typeof a;
@@ -53,9 +53,9 @@ class Selector {
             if (this._filter(result)) return result;
         } catch (err) {
             // Don't rethrow, as this can happen when an object is re-assigned
-            console.warn("Selector - dropping event due to ", err);
+            console.warn('Selector - dropping event due to ', err);
         }
-        debug("Selector - dropping event");
+        debug('Selector - dropping event');
         return null;
     }
 

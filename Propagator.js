@@ -1,7 +1,7 @@
 /** Event propagator
  */
 
-const Publisher = require('./Publisher')
+const Publisher = require('./Publisher');
 
 
 class Propagator extends Publisher {
@@ -29,8 +29,8 @@ class Propagator extends Publisher {
     }
 
     removeChild(child) {
-        if (child.parent !== this) throw "cannot remove child from propagator which is not its parent";
-        delete this.children[child.id]
+        if (child.parent !== this) throw 'cannot remove child from propagator which is not its parent';
+        delete this.children[child.id];
         child.parent = null;
     }
 }

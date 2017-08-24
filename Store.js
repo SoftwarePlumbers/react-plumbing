@@ -3,19 +3,6 @@ const Action = require('./Action');
 const COMMANDS = require('./Commands');
 
 
-function isQuoted(val) {
-    if (val && typeof val === 'string') {
-                let fchar = val.charAt(0);
-        return (fchar === '\'' || fchar === '"') && val.charAt(val.length - 1) === fchar;
-    } else {
-        return false;
-    }
-}
-
-function stripQuote(val) {
-    return (isQuoted(val)) ? val.slice(1,-1) : val;
-}
-
 class StoreException extends Error {}
 
 class Store {
@@ -23,8 +10,8 @@ class Store {
     constructor(state, notify_change, notify_error) {
         this.state = [ state ];
         this.pending_actions = [];
-        this.notify_change = notify_change ? notify_change : (state) => {};
-        this.notify_error = notify_error ? notify_error : (err) => { console.log(err) };
+        this.notify_change = notify_change ? notify_change : () => {};
+        this.notify_error = notify_error ? notify_error : (err) => { console.log(err); };
         this.pending = false;
     }
 
@@ -39,7 +26,7 @@ class Store {
     _popN(n) {
         if (n === 0) return [];
         if (n === 1) return [ this.state.pop() ];
-        if (n > this.state.length) this._throw("Stack underflow");
+        if (n > this.state.length) this._throw('Stack underflow');
         let result = this.state.slice(-n);
         this.state = this.state.slice(0,  -n);
         return result;
@@ -57,7 +44,7 @@ class Store {
         let parameter_count = this._pop();
         let parameters = this._popN(parameter_count);
         let object = this._pop();
-        debug("State._executeStateMethod calling ", method, object, parameters);
+        debug('State._executeStateMethod calling ', method, object, parameters);
         
         let func = object[method];
       
@@ -67,7 +54,7 @@ class Store {
                 this.pending = true;
                 result.then(future => this._resume(future)).catch(err => this.notify_error(err));
             } else {
-                debug("State._callMethod got result ", result);
+                debug('State._callMethod got result ', result);
                 this._push(result);
             }
         } else {
@@ -76,30 +63,30 @@ class Store {
     }
 
     _dup(top) {
-        debug("Store._dup", top);
+        debug('Store._dup', top);
         this._push(top);
         this._push(top);
-     }
+    }
 
     _getAttr(attribute) {
         let object = this._pop();
-        debug("Store._getAttr", attribute, object);
+        debug('Store._getAttr', attribute, object);
         let val = object[attribute];
         if (val === undefined) {
-            debug("getting from",object);
+            debug('getting from',object);
             this._throw(`unknown property ${attribute}`);
         }
         if (val instanceof Promise) {
             this.pending = true;
             val.then(future => this._resume(future)).catch(err => this.notify_error(err));
         } else {
-            debug("State_getAttr got result ", val);
+            debug('State_getAttr got result ', val);
             this._push(val);
         }
     }
 
     _storeParameter(parameter) {
-        debug("Store.storeParameter",  parameter); 
+        debug('Store.storeParameter',  parameter); 
         this._push(parameter);
     }
 
@@ -139,7 +126,7 @@ class Store {
         if (!this._doCommand(instruction) ) this._storeParameter(instruction);        
     }   
 
-     _resume(result) {
+    _resume(result) {
         this._push(result);
         let to_resume = this.pending_actions;
         this.pending_actions = [];
@@ -170,7 +157,7 @@ class Store {
     _when(script) {
         this.dumpStack();
         let condition = this._pop();
-        debug("Store._when", condition, script);
+        debug('Store._when', condition, script);
         if (condition) 
             this._evaluate(script);
         else {
@@ -179,8 +166,8 @@ class Store {
     }
 
     _evaluate(script) {
-         for (let action of script) {
-            debug("action", action.name || action);
+        for (let action of script) {
+            debug('action', action.name || action);
             if (this.pending)
                 this.pending_actions.push(action);
             else
@@ -191,8 +178,8 @@ class Store {
 
     submitScript(script) {
         console.assert(script instanceof Array, 'Script must be an array');
-        debug("Store.submitScript", script);
-        debug("Store.submitScript actions pending", this.pending);
+        debug('Store.submitScript', script);
+        debug('Store.submitScript actions pending', this.pending);
 
         this._evaluate(script);
 
@@ -209,7 +196,7 @@ class Store {
     }
 
     submit(action) {
-        log.info(`Submitted ${Action.stringify(action)}`);
+        debug(`Submitted ${Action.stringify(action)}`);
         this.submitScript(Action.createScript(action));
     }
 
