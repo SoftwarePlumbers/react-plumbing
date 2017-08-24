@@ -198,11 +198,11 @@ class Store {
 
         if (!this.pending) {
             if (this.state.length > 1) {    
-                log.warn('Stack is growing...');
+                console.warn('Stack is growing...');
                 this.dumpStack();
             }
             if (this.state.length < 1) {
-                log.error('Stack exhausted');
+                console.error('Stack exhausted');
             }
             this.notify_change(this.getCurrentState());
         }

@@ -53,7 +53,7 @@ class Selector {
             if (this._filter(result)) return result;
         } catch (err) {
             // Don't rethrow, as this can happen when an object is re-assigned
-            log.warn("Selector - dropping event due to ", err);
+            console.warn("Selector - dropping event due to ", err);
         }
         debug("Selector - dropping event");
         return null;

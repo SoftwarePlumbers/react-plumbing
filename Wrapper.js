@@ -16,12 +16,12 @@ class Wrapper extends React.Component {
 
     constructor(wrapped, selector, props, context) {
         super(props,context);
-        if (!context) log.warn('Wrapper received no context');
+        if (!context) console.warn('Wrapper received no context');
         this.selector = selector.filterUnchanged();
         this.wrapped = wrapped;
-        log.debug("Wrapper.constructor store", context.store);
+        debug("Wrapper.constructor store", context.store);
         this.state = selector.select(context.store.getCurrentState());
-        log.debug("Wrapper.constructor state", this.state);
+        ebug("Wrapper.constructor state", this.state);
         this.propagator = new Propagator();
         this.wrappedname = Wrapper.figureOutName(wrapped);
     }
@@ -34,7 +34,7 @@ class Wrapper extends React.Component {
         if (this.context.propagator) 
             this.context.propagator.addChild(this.propagator);
         else
-            log.warn(`no propagator in context: ${JSON.stringify(this.context)}`)
+            console.warn(`no propagator in context: ${JSON.stringify(this.context)}`)
         if (!this.subscription) this.subscription = this.propagator.subscribe(props => this.notifyChange(props), this.selector);
     }
 
@@ -44,13 +44,13 @@ class Wrapper extends React.Component {
     }
 
     notifyChange(props) {
-        log.debug("Wrapper.notifyChange received props ", this.wrappedname, props);
+        debug("Wrapper.notifyChange received props ", this.wrappedname, props);
         this.setState(props);
     }
 
     render() {
         let merged_props = Object.assign({}, this.props, this.state ); 
-        log.debug("Wrapper.render", this.wrappedname, merged_props);
+        debug("Wrapper.render", this.wrappedname, merged_props);
         return React.createElement(this.wrapped, merged_props);
     }
 }

@@ -9,8 +9,6 @@ import App from './App';
 import { Pump, Action, Container } from 'react-plumbing'
 import Site from './model/Site'
 
-logger.configure(logconfig);
-
 const pump = new Pump(new Site());
 
 ReactDOM.render(
