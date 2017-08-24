@@ -1,6 +1,6 @@
 {
   "name": "react-plumbing",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "State management/Event publishing framework for React",
   "main": "index.js",
   "scripts": {
