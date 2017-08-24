@@ -1,4 +1,4 @@
-const Selector = require('./Selector');
+const Selector = require('../Selector');
 const chai = require('chai');
 
 const expect = chai.expect;

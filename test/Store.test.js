@@ -1,9 +1,8 @@
-const Store = require('./Store');
-const COMMANDS = require('./Commands');
+const Store = require('../Store');
+const COMMANDS = require('../Commands');
 const chai = require('chai');
-const logger = require('simple-console-logger');
+const debug = require('debug')('react-plumbing~tests');
 
-const log = logger.getLogger('tests');
 const expect = chai.expect;
 
 
@@ -13,11 +12,11 @@ class Test {
     constructor(val) { this.val = val; }
     inc()   { return new Test(this.val+1); }
     add(n)  { 
-        log.debug("Test.add", this.val, n); 
+        debug("Test.add", this.val, n); 
         return new Test(this.val + n); 
     }
     get greaterThan10() { 
-        log.debug("Test.greaterThan10", this.val);
+        debug("Test.greaterThan10", this.val);
         return this.val > 10; 
     }
     laterDec() { 

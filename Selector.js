@@ -1,6 +1,4 @@
-const logger = require('simple-console-logger');
-
-const log = logger.getLogger('components');
+const debug = require('debug')('react-plumbing~selector');
 
 const NO_MAP = val => val;
 const NO_FILTER = val => true;
@@ -9,7 +7,7 @@ class Selector {
 
 
     static _equals(a, b, compare) {
-        log.debug("Selector._equals", a, b);
+        debug("Selector._equals", a, b);
         if (a === b) return true;
         //console.log('not identical');
         let aType = typeof a;
@@ -38,7 +36,7 @@ class Selector {
     }
 
     static _logComparison(a,b) {
-        console.log(`${a} === ${b} is ${a === b}`); return a === b;
+        debug(`${a} === ${b} is ${a === b}`); return a === b;
     }
 
     static shallowEquals(a, b) { return Selector._equals(a,b, (a,b) => a === b); }
@@ -57,7 +55,7 @@ class Selector {
             // Don't rethrow, as this can happen when an object is re-assigned
             log.warn("Selector - dropping event due to ", err);
         }
-        log.debug("Selector - dropping event");
+        debug("Selector - dropping event");
         return null;
     }
 

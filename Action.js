@@ -1,9 +1,5 @@
 const COMMANDS = require('./Commands');
 const Builder = require('codelike');
-const logger = require('simple-console-logger');
-
-const log = logger.getLogger('actions');
-
 
 /** Capitalize  a string */
 function capitalize(s) {

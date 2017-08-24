@@ -1,9 +1,8 @@
 const PropTypes = require('prop-types');
 const Propagator = require('./Propagator');
 const React = require('react');
-const logger = require('simple-console-logger');
+const debug = require('debug')('react-plumbing~wrapper');
 
-const log = logger.getLogger('components');
 
 class Wrapper extends React.Component {
 

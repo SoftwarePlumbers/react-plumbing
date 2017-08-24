@@ -1,7 +1,6 @@
-const logger = require('simple-console-logger');
+const debug = require('debug')('react-plumbing~store');
 const Action = require('./Action');
 const COMMANDS = require('./Commands');
-const log = logger.getLogger('actions');
 
 
 function isQuoted(val) {
@@ -58,7 +57,7 @@ class Store {
         let parameter_count = this._pop();
         let parameters = this._popN(parameter_count);
         let object = this._pop();
-        log.debug("State._executeStateMethod calling ", method, object, parameters);
+        debug("State._executeStateMethod calling ", method, object, parameters);
         
         let func = object[method];
       
@@ -68,7 +67,7 @@ class Store {
                 this.pending = true;
                 result.then(future => this._resume(future)).catch(err => this.notify_error(err));
             } else {
-                log.debug("State._callMethod got result ", result);
+                debug("State._callMethod got result ", result);
                 this._push(result);
             }
         } else {
@@ -77,30 +76,30 @@ class Store {
     }
 
     _dup(top) {
-        log.debug("Store._dup", top);
+        debug("Store._dup", top);
         this._push(top);
         this._push(top);
      }
 
     _getAttr(attribute) {
         let object = this._pop();
-        log.debug("Store._getAttr", attribute, object);
+        debug("Store._getAttr", attribute, object);
         let val = object[attribute];
         if (val === undefined) {
-            log.debug("getting from",object);
+            debug("getting from",object);
             this._throw(`unknown property ${attribute}`);
         }
         if (val instanceof Promise) {
             this.pending = true;
             val.then(future => this._resume(future)).catch(err => this.notify_error(err));
         } else {
-            log.debug("State_getAttr got result ", val);
+            debug("State_getAttr got result ", val);
             this._push(val);
         }
     }
 
     _storeParameter(parameter) {
-        log.debug("Store.storeParameter",  parameter); 
+        debug("Store.storeParameter",  parameter); 
         this._push(parameter);
     }
 
@@ -156,7 +155,7 @@ class Store {
 
     _find(condition) {
         let val = this._pop();
-        log.debug('Store._find', val, condition);
+        debug('Store._find', val, condition);
         this._push(val.find(condition));
     }
 
@@ -171,7 +170,7 @@ class Store {
     _when(script) {
         this.dumpStack();
         let condition = this._pop();
-        log.debug("Store._when", condition, script);
+        debug("Store._when", condition, script);
         if (condition) 
             this._evaluate(script);
         else {
@@ -181,7 +180,7 @@ class Store {
 
     _evaluate(script) {
          for (let action of script) {
-            log.debug("action", action.name || action);
+            debug("action", action.name || action);
             if (this.pending)
                 this.pending_actions.push(action);
             else
@@ -192,8 +191,8 @@ class Store {
 
     submitScript(script) {
         console.assert(script instanceof Array, 'Script must be an array');
-        log.debug("Store.submitScript", script);
-        log.debug("Store.submitScript actions pending", this.pending);
+        debug("Store.submitScript", script);
+        debug("Store.submitScript actions pending", this.pending);
 
         this._evaluate(script);
 
@@ -221,7 +220,7 @@ class Store {
     dumpStack() {
         for (let i = 0; i < this.state.length; i++) {
             let item = this.state[i];
-            log.debug(i, item);
+            debug(i, item);
         }
     }
 }

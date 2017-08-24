@@ -1,5 +1,5 @@
-const Selector = require('./Selector');
-const Publisher = require('./Publisher');
+const Selector = require('../Selector');
+const Publisher = require('../Publisher');
 const chai = require('chai');
 
 const expect = chai.expect;

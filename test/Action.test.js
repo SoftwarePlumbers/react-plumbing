@@ -1,10 +1,8 @@
-const COMMANDS = require('./Commands');
+const COMMANDS = require('../Commands');
 const chai = require('chai');
-const Actions = require('./Action');
+const Actions = require('../Action');
 const Action = Actions.builder;
-const logger = require('simple-console-logger');
 
-const log = logger.getLogger('tests');
 
 const expect = chai.expect;
 

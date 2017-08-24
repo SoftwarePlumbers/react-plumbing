@@ -1,10 +1,11 @@
 {
   "name": "react-plumbing",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "State management/Event publishing framework for React",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "docs": "jsdoc -c ./jsdoc.conf -d build/docs -t ./node_modules/ink-docstrap/template README.md *.js"
   },
   "repository": {
     "type": "git",
@@ -26,9 +27,12 @@
   "homepage": "https://github.com/softwareplumber/react-plumbing#readme",
   "devDependencies": {
     "chai": "^4.1.1",
+    "ink-docstrap": "^1.3.0",
+    "jsdoc": "^3.5.4",
     "mocha": "^3.5.0"
   },
   "dependencies": {
-    "codelike": "^0.1.2"
+    "codelike": "^0.1.2",
+    "debug": "^3.0.0"
   }
 }
